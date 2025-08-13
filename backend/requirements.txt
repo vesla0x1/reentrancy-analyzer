@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-multipart
+networkx
+matplotlib
+pydantic
+crytic-compile

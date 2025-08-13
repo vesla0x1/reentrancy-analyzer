@@ -1,0 +1,12 @@
+[submodule "contracts/clober-exploit/lib/forge-std"]
+	path = contracts/clober-exploit/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "contracts/clober-exploit/lib/openzeppelin-contracts"]
+	path = contracts/clober-exploit/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "contracts/clober-exploit/lib/solmate"]
+	path = contracts/clober-exploit/lib/solmate
+	url = https://github.com/transmissions11/solmate
+[submodule "contracts/clober-exploit/lib/v2-core"]
+	path = contracts/clober-exploit/lib/v2-core
+	url = https://github.com/clober-dex/v2-core
