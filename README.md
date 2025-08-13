@@ -74,7 +74,29 @@ git clone https://github.com/vesla0x1/reentrancy-analyzer.git
 cd reentrancy-analyzer
 ```
 
-#### 2. Start the Backend
+#### 2. Environment Variables
+To configure the frontend, set up environment variables for the API URL.
+
+**Create** `.env` **files**:
+
+- Copy the example environment file:
+
+ ```bash
+ cp frontend/.env.example frontend/.env.development
+ ```
+- The `.env.example` file contains:
+
+ ```env
+ REACT_APP_API_URL=http://localhost:8000
+ ```
+- For development, edit `frontend/.env.development` to set `REACT_APP_API_URL` to your backend API URL (default: `http://localhost:8000`).
+- For production, create `frontend/.env.production` and set `REACT_APP_API_URL` to your production API URL, e.g.:
+
+ ```env
+ REACT_APP_API_URL=https://your-production-api.com
+ ```
+
+#### 3. Start the Backend
 ```bash
 # Build the Docker image
 docker build -t reentrancy-analyzer .
@@ -86,7 +108,7 @@ docker run -p 8000:8000 -v $(pwd)/temp:/app/temp reentrancy-analyzer
 docker run -d -p 8000:8000 -v $(pwd)/temp:/app/temp --name analyzer-backend reentrancy-analyzer
 ```
 
-#### 3. Start the Frontend
+#### 4. Start the Frontend
 ```bash
 # In a new terminal
 cd frontend
@@ -94,12 +116,12 @@ yarn install
 yarn start
 ```
 
-#### 4. Access the Application
+#### 5. Access the Application
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 
-#### 5. Test with Precompiled Clober Exploit
+#### 6. Test with Precompiled Clober Exploit
 If you want to try the analyzer immediately without setting up Foundry or installing dependencies, you can use the **precompiled Clober DEX exploit project** included in this repository.
 
 - Location: [`./dist/clober-exploit.zip`](./dist/clober-exploit.zip)

@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import './App.css';
 import CallGraph, { GraphNode, GraphData } from './CallGraph';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 interface Pattern {
   type: string;
