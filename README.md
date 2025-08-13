@@ -2,6 +2,35 @@
 
 A static analysis tool for detecting reentrancy vulnerabilities in Solidity smart contracts with cross-contract analysis capabilities and interactive visualization.
 
+## Live Demo
+
+**Try it now: [https://reentrancy-analyzer.veslasoft.com](https://reentrancy-analyzer.veslasoft.com)**
+
+No installation required! The analyzer is deployed and ready to use. Simply upload your Foundry project as a ZIP file, or use the included Clober DEX exploit example at `./dist/clober-exploit.zip`!
+
+<div align="center">
+
+### Upload Interface
+![Upload File](./assets/upload-file.png)
+
+*Simple drag-and-drop interface for uploading Foundry projects*
+
+### Analysis Results
+![Analysis Results](./assets/results.png)
+
+*Comprehensive vulnerability report with severity classification*
+
+### Interactive Call Graph
+![Call Graph View 1](./assets/graph-1.png)
+
+*D3.js-powered interactive visualization of function relationships*
+
+![Call Graph View 2](./assets/graph-2.png)
+
+*Click nodes to highlight external call paths and identify vulnerable flows*
+
+</div>
+
 ## Real-World Case Study: Clober DEX Exploit
 
 This analyzer includes the **Clober DEX exploit** as a demonstration case. On December 10, 2024, Clober DEX suffered a critical reentrancy attack on the Base network resulting in significant fund losses. The exploit is included in the `contracts/clober-exploit` directory with a full replay test.
