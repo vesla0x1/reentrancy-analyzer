@@ -72,9 +72,9 @@ The exploit test case was reconstructed by:
 - **Cross-Contract Analysis**: Analyzes multiple contracts simultaneously to detect inter-contract reentrancy patterns
 - **Interface Resolution**: Automatically resolves interface implementations to analyze concrete functions
 - **Severity Classification**:
-  - **Critical**: Confirmed reentrancy vulnerabilities
-  - **High/Medium**: Potential vulnerabilities based on state changes
-  - **Low**: "Safe" state changes after external calls to analyzed (known) contracts
+  - **Critical**: Confirmed reentrancy vulnerabilities with callback paths in analyzed contracts
+  - **High/Medium**: Potential reentrancy vulnerabilities with possible callback paths in unknown contracts, followed by state changes
+  - **Low**: State changes after external calls to analyzed contracts, but with no existing callback paths
 
 ### Interactive Visualization
 - **Call Graph Visualization**: D3.js-powered interactive graph showing all function relationships
@@ -156,15 +156,6 @@ If you want to try the analyzer immediately without setting up Foundry or instal
 - Location: [`./dist/clober-exploit.zip`](./dist/clober-exploit.zip)
 - Contents: Fully prepared Foundry project for the Clober exploit, including all dependencies in `lib/` and a replay test.
 
-**How to use:**
-1. Start the backend and frontend as described in **Quick Start** below.
-2. Open the web application at [http://localhost:3000](http://localhost:3000).
-3. Click **"Choose ZIP file"** and select `dist/clober-exploit.zip`.
-4. Click **"Analyze Project"**.
-5. Explore the vulnerability findings and interactive call graph.
-
-This is the fastest way to see the analyzer in action.
-
 ## Analyzing the Clober DEX Exploit
 
 The repository includes the actual vulnerable Clober contracts for testing:
@@ -179,37 +170,7 @@ forge install
 
 # Run the exploit replay test
 forge test --match-contract CloberDEX_exp -vvv
-
-# This will show:
-# - How the attacker exploited the reentrancy
-# - The vulnerable execution flow
-# - Funds being drained from the protocol
 ```
-
-### Quick Analysis
-```bash
-# The Clober exploit contracts are in contracts/clober-exploit
-cd contracts/clober-exploit
-
-# Create ZIP for analysis (includes vulnerable contracts)
-zip -r clober-exploit.zip . -x "*.git*" -x "*cache*" -x "*out*"
-
-# Upload clober-exploit.zip to the analyzer
-```
-
-### Manual Preparation
-```bash
-# Or use the prepare script
-cd contracts/clober-exploit
-../../scripts/prepare-project.sh .
-```
-
-### Expected Results
-When you analyze the Clober contracts, the tool will detect:
-- **High Severity**: `Rebalancer._burn` function
-- **Vulnerability**: External call to `pool.strategy.burnHook()` before state updates
-- **Risk**: State changes to `pool.reserveA` and `pool.reserveB` after external call
-- **Classification**: Potential reentrancy vulnerability
 
 ## Preparing Your Own Foundry Project
 
@@ -358,57 +319,6 @@ reentrancy-analyzer/
 ├── .gitignore
 └── README.md                    # This file
 ```
-
-## Docker Commands
-
-```bash
-# Build the image
-docker build -t reentrancy-analyzer .
-
-# Run in foreground (see logs)
-docker run -p 8000:8000 -v $(pwd)/temp:/app/temp reentrancy-analyzer
-
-# Run in background
-docker run -d -p 8000:8000 -v $(pwd)/temp:/app/temp --name analyzer-backend reentrancy-analyzer
-
-# View logs
-docker logs -f analyzer-backend
-
-# Stop the container
-docker stop analyzer-backend
-
-# Remove the container
-docker rm analyzer-backend
-
-# Rebuild after changes
-docker build -t reentrancy-analyzer . --no-cache
-```
-
-## Understanding the Analysis
-
-### Vulnerability Classifications
-
-#### Critical (Red Alert 🔴)
-- Confirmed reentrancy with callback path
-
-#### High Risk (Orange Alert 🟠)
-- Multiple state changes after external calls
-- Public/external function visibility
-- Unknown external call targets (Example: Clober's `_burn` → `burnHook` → re-enter)
-
-#### Medium Risk (Yellow Alert 🟡)
-- Single state change after external call
-- Internal visibility with external calls
-
-#### Low Risk (Green Info 🟢)
-- External calls to verified safe contracts
-- No state changes after external calls
-
-### Key Indicators
-- **CEI Violation**: Checks-Effects-Interactions pattern violation
-- **State Changes**: Modifications to storage variables after external calls
-- **External Calls**: Calls to addresses outside the analyzed contract set
-- **Callback Risk**: Possibility of control flow returning to original contract
 
 ## Troubleshooting
 
