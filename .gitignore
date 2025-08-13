@@ -43,6 +43,8 @@ frontend/build/
 temp/
 logs/
 *.zip
+!/dist/
+!/dist/*.zip
 analysis_cache/
 crytic-export/
 out/

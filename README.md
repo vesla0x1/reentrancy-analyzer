@@ -99,6 +99,21 @@ yarn start
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 
+#### 5. Test with Precompiled Clober Exploit
+If you want to try the analyzer immediately without setting up Foundry or installing dependencies, you can use the **precompiled Clober DEX exploit project** included in this repository.
+
+- Location: [`./dist/clober-exploit.zip`](./dist/clober-exploit.zip)
+- Contents: Fully prepared Foundry project for the Clober exploit, including all dependencies in `lib/` and a replay test.
+
+**How to use:**
+1. Start the backend and frontend as described in **Quick Start** below.
+2. Open the web application at [http://localhost:3000](http://localhost:3000).
+3. Click **"Choose ZIP file"** and select `dist/clober-exploit.zip`.
+4. Click **"Analyze Project"**.
+5. Explore the vulnerability findings and interactive call graph.
+
+This is the fastest way to see the analyzer in action.
+
 ## Analyzing the Clober DEX Exploit
 
 The repository includes the actual vulnerable Clober contracts for testing:
